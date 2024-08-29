@@ -23,19 +23,19 @@ app.get("/greetings/:username", (req,res) => {
 //you need either manually code the random fucntion or import a library to the server, given the function is simple you should totally just wirt the function
 
 
-// function getRandomInt(max) {
-//     return Math.floor(Math.random() * max);
-//   }
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
   
-// app.get("/roll/:number", (req,res) => {
-//     const num = parseInt(req.params.number)
-//     if (typeof num === "NaN") {
-//         res.send("You must specify a number.")
+app.get("/roll/:number", (req,res) => {
+    const num = parseInt(req.params.number)
+    if (isNaN(num)) {
+        res.send("You must specify a number.")
         
-//     } else {
-//         res.send(`here is your reandom number ${getRandomInt(num)}`)
-//     }
-// })
+    } else {
+        res.send(`here is your random number ${getRandomInt(num)}`)
+    }
+})
 
 
 //task 3 bellow
@@ -53,3 +53,40 @@ app.get("/collectibles/:index", (req,res) => {
 })
 
 
+//task 4 bellow
+const shoes = [
+    { name: "Birkenstocks", price: 50, type: "sandal" },
+    { name: "Air Jordans", price: 500, type: "sneaker" },
+    { name: "Air Mahomeses", price: 501, type: "sneaker" },
+    { name: "Utility Boots", price: 20, type: "boot" },
+    { name: "Velcro Sandals", price: 15, type: "sandal" },
+    { name: "Jet Boots", price: 1000, type: "boot" },
+    { name: "Fifty-Inch Heels", price: 175, type: "heel" }
+];
+
+app.get("/shoes", (req,res) => {
+    const minPrice = req.query.minPrice
+    const maxPrice = req.query.maxPrice
+    const type = req.query.type
+
+    // const filteredShoes = []
+    
+    // shoes.forEach((shoe) => {
+
+    //     if (shoe.price <= maxPrice) {
+    //         filteredShoes.push(shoe)
+    //     }
+    //     if (shoe.price >= minPrice) {
+    //         filteredShoes.push(shoe)
+    //     }
+    //     if (shoe.type === type) {
+    //         filteredShoes.push(shoe)
+    //     }
+    // })
+    const filteredShoes = shoes.filter((shoe) => shoe.type === type && shoe.price >= minPrice && shoe.price <= maxPrice)
+
+
+    console.log(filteredShoes)
+    res.send(`here are the filtered shoes ${filteredShoes}`)
+
+})
