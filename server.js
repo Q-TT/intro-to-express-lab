@@ -69,24 +69,9 @@ app.get("/shoes", (req,res) => {
     const maxPrice = req.query.maxPrice
     const type = req.query.type
 
-    // const filteredShoes = []
-    
-    // shoes.forEach((shoe) => {
-
-    //     if (shoe.price <= maxPrice) {
-    //         filteredShoes.push(shoe)
-    //     }
-    //     if (shoe.price >= minPrice) {
-    //         filteredShoes.push(shoe)
-    //     }
-    //     if (shoe.type === type) {
-    //         filteredShoes.push(shoe)
-    //     }
-    // })
     const filteredShoes = shoes.filter((shoe) => shoe.type === type && shoe.price >= minPrice && shoe.price <= maxPrice)
 
-
     console.log(filteredShoes)
-    res.send(`here are the filtered shoes ${filteredShoes}`)
+    res.send(filteredShoes)
 
 })
